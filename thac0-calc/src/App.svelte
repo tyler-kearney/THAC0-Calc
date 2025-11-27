@@ -4,6 +4,9 @@
   import viteLogo from '/vite.svg';
   import svelteLogo from './assets/svelte-logo.svg';
 
+  // Helper functions
+  import { determineAbilityMod, determineBaseThac0 } from './lib/thac0helpers.js';
+
   // State Variables
   let selectedClass = '';
   let level = 1;
@@ -12,18 +15,26 @@
   let targetAC = 0;
   let weaponType = '';
 
+  let abilityMod = determineAbilityMod(attackAbilityScore);
+  let baseThac0 = determineBaseThac0(selectedClass, level);
+
   // Output Variables
   let thac0Score = 0;
   let requiredRoll = 0;
 
   // Logic Functions
   function onCalculate() {
-    // Placeholder logic for THAC0 calculation
-    // Replace with actual game logic as needed
-    thac0Score = 20 - level + weaponAttackMod - Math.floor((attackAbilityScore - 10) / 2);
-    requiredRoll = thac0Score - targetAC;
-    if (requiredRoll < 1) requiredRoll = 1;
-    if (requiredRoll > 20) requiredRoll = 20;
+    // Validation
+    if (!selectedClass || level < 1) {
+      console.warn("Please select a valid class and level.");
+      requiredRoll = NaN;
+      thac0Score = NaN;
+      return;
+    }
+
+    // Calculation
+    requiredRoll = baseThac0 - targetAC - abilityMod - weaponAttackMod;
+    thac0Score = baseThac0;
   }
 
   function onClear() {
