@@ -1,8 +1,6 @@
 <script>
   import InputForm from './lib/InputForm.svelte';
   import OutputDisplay from './lib/OutputDisplay.svelte';
-  import viteLogo from '/vite.svg';
-  import svelteLogo from './assets/svelte-logo.svg';
 
   // Helper functions
   import { determineAbilityMod, determineBaseThac0 } from './lib/thac0helpers.js';
