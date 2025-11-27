@@ -1,32 +1,56 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
   import InputForm from './lib/InputForm.svelte';
+  import OutputDisplay from './lib/OutputDisplay.svelte';
+  import viteLogo from '/vite.svg';
+  import svelteLogo from './assets/svelte-logo.svg';
+
+  // State Variables
+  let selectedClass = '';
+  let level = 1;
+  let attackAbilityScore = 3;
+  let weaponAttackMod = 0;
+  let targetAC = 0;
+  let weaponType = '';
+
+  // Output Variables
+  let thac0Score = 0;
+  let requiredRoll = 0;
+
+  // Logic Functions
+  function onCalculate() {
+    // Placeholder logic for THAC0 calculation
+    // Replace with actual game logic as needed
+    thac0Score = 20 - level + weaponAttackMod - Math.floor((attackAbilityScore - 10) / 2);
+    requiredRoll = thac0Score - targetAC;
+    if (requiredRoll < 1) requiredRoll = 1;
+    if (requiredRoll > 20) requiredRoll = 20;
+  }
+
+  function onClear() {
+    selectedClass = '';
+    level = 1;
+    attackAbilityScore = 3;
+    weaponAttackMod = 0;
+    targetAC = 0;
+    weaponType = '';
+    thac0Score = 0;
+    requiredRoll = 0;
+  }
 </script>
 
 <main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <h1>THAC0 Calculator</h1>
+  <InputForm
+    bind:selectedClass
+    bind:level
+    bind:attackAbilityScore
+    bind:weaponAttackMod
+    bind:targetAC
+    bind:weaponType
+    {onCalculate}
+    {onClear}
+  />
+  <OutputDisplay {thac0Score} {requiredRoll} />
 </main>
 
 <style>
