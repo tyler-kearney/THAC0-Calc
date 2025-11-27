@@ -89,11 +89,11 @@ export function determineThac0Interval(className) {
 
 // Function to determine starting THAC0 based on class
 export function determineBaseThac0(className, level) {
+    let levelInterval = determineThac0Interval(className);
+    
     if (level < 1) {
         return 20; // Default THAC0 for invalid levels
     }
-
-    let levelInterval = determineThac0Interval(className);
 
     if (levelInterval === 0) {
         console.error(`Unrecognized class name: ${className}. Defaulting to 5 level interval.`);
