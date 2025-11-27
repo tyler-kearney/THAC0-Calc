@@ -14,7 +14,7 @@
     const classes = [
         'Fighter',
         'Cleric',
-        'Magic User',
+        'Magic-User',
         'Thief',
         'Elf',
         'Dwarf',
