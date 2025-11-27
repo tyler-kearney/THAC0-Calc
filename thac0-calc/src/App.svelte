@@ -13,15 +13,14 @@
   let targetAC = 0;
   let weaponType = '';
 
-  let abilityMod = determineAbilityMod(attackAbilityScore);
-  let baseThac0 = determineBaseThac0(selectedClass, level);
-
   // Output Variables
   let thac0Score = 0;
   let requiredRoll = 0;
 
   // Logic Functions
   function onCalculate() {
+    let abilityMod = determineAbilityMod(attackAbilityScore);
+    let baseThac0 = determineBaseThac0(selectedClass, level);
     // Validation
     if (!selectedClass || level < 1) {
       console.warn("Please select a valid class and level.");
